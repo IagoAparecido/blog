@@ -11,3 +11,15 @@
   display: flex;
   gap: 30px;
 }
+
+.nav_header form {
+}
+.nav_header form input {
+  height: 30px;
+  padding-inline: 5px;
+}
+.nav_header form button {
+  height: 30px;
+  padding-inline: 5px;
+  cursor: pointer;
+}

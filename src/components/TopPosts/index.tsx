@@ -2,7 +2,7 @@ import "./style.css";
 
 function TopPosts() {
   return (
-    <div className="container_recent">
+    <div className="container_top">
       <div className="content_card">
         <div
           className="recent_card"

@@ -1,5 +1,7 @@
 import "./style.css";
 
+import { BsSearch } from "react-icons/bs";
+
 function Header() {
   return (
     <div className="container_header">
@@ -16,7 +18,9 @@ function Header() {
 
         <form action="">
           <input type="text" />
-          <button>Search</button>
+          <button>
+            <BsSearch />
+          </button>
         </form>
       </div>
     </div>

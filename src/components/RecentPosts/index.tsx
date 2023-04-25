@@ -1,7 +1,9 @@
 import "./style.css";
 
-function index() {
-  return <div>index</div>;
+import CardPost from "../CardPost";
+
+function RecentPosts() {
+  return <CardPost />;
 }
 
-export default index;
+export default RecentPosts;
