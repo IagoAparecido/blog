@@ -1,0 +1,4 @@
+.container_app {
+  display: flex;
+  flex-direction: column;
+}

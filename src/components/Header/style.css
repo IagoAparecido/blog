@@ -1,0 +1,13 @@
+.container_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 50px;
+  height: 80px;
+  text-align: center;
+}
+
+.nav_header {
+  display: flex;
+  gap: 30px;
+}
