@@ -9,6 +9,12 @@
   background-color: #f9f9fb;
 }
 
+.content_card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .recent_card {
   display: flex;
   flex-direction: column;
@@ -40,8 +46,13 @@
   align-items: center;
 }
 
-.content_card {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+@media (max-width: 1300px) {
+  .card5 {
+    display: none;
+  }
+}
+@media (max-width: 900px) {
+  .container_top {
+    display: none;
+  }
 }

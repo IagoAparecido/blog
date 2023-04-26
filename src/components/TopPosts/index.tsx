@@ -24,7 +24,7 @@ function TopPosts() {
       >
         <p>Hello</p>
       </div>
-      <div className="content_card">
+      <div className="content_card card5">
         <div
           className="recent_card"
           style={{ backgroundImage: "url(../../src/assets/img3.jpg)" }}
@@ -33,7 +33,7 @@ function TopPosts() {
         </div>
 
         <div
-          className="recent_card"
+          className="recent_card "
           style={{ backgroundImage: "url(../../src/assets/img4.jpg)" }}
         >
           <p>hello</p>
