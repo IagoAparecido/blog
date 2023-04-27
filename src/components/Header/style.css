@@ -5,6 +5,7 @@
   padding-inline: 50px;
   height: 80px;
   text-align: center;
+  border-bottom: 3px solid #f9f9fb;
 }
 
 .nav_header {

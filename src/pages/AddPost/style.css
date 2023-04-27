@@ -1,0 +1,17 @@
+.container_add_post {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  /* background-color: #f9f9fb; */
+}
+
+.container_add_post .content_add_post {
+  margin-top: 100px;
+  padding-inline: 50px;
+  max-width: 1200px;
+}
+
+.container_add_post .content_add_post h1 {
+  margin-bottom: 30px;
+}
