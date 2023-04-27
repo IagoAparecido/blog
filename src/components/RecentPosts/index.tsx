@@ -1,9 +1,38 @@
 import "./style.css";
-
+import { useState } from "react";
 import CardPost from "../CardPost";
 import { BsSearch } from "react-icons/bs";
+import ReactPaginate, { ReactPaginateProps } from "react-paginate";
 
-function RecentPosts() {
+interface PostData {
+  title: string;
+  content: string;
+  author: string;
+}
+
+function RecentPosts({ data }: { data: PostData[] }) {
+  const [pageNumber, setPageNumber] = useState<number>(0);
+  const postsPerPage = 10;
+  const pagesVisited: number = pageNumber * postsPerPage;
+
+  const displayPosts = (): JSX.Element => {
+    return (
+      <div className="recent_content">
+        {data
+          .slice(pagesVisited, pagesVisited + postsPerPage)
+          .map((post, index) => (
+            <CardPost key={index} {...post} />
+          ))}
+      </div>
+    );
+  };
+
+  const pageCount: number = Math.ceil(data.length / postsPerPage);
+
+  const changePage = ({ selected }: { selected: number }): void => {
+    setPageNumber(selected);
+  };
+
   return (
     <div className="recent_container">
       <div className="nav_header-recent">
@@ -17,31 +46,19 @@ function RecentPosts() {
         </form>
       </div>
       <h1>Posts Recentes</h1>
-      <div className="recent_content">
-        <CardPost />
-        <CardPost />
-        <CardPost />
-        <CardPost />
-        <CardPost />
-        <CardPost />
-        <CardPost />
-        <CardPost />
-        <CardPost />
-        <CardPost />
-        <CardPost />
-        <CardPost />
-        <CardPost />
-        <CardPost />
-        <CardPost />
-        <CardPost />
-        <CardPost />
-        <CardPost />
-        <CardPost />
-        <CardPost />
-        <CardPost />
-        <CardPost />
-        <CardPost />
-      </div>
+      {displayPosts()}
+      <ReactPaginate
+        previousLabel={"Anterior"}
+        nextLabel={"Próxima"}
+        pageCount={pageCount}
+        onPageChange={changePage}
+        containerClassName={"paginationButtons"}
+        previousLinkClassName={"previousButton"}
+        nextLinkClassName={"nextButton"}
+        disabledClassName={"paginationDisabled"}
+        activeClassName={"paginationActive"}
+        // define as propriedades da interface de props do componente ReactPaginate
+      />
     </div>
   );
 }
