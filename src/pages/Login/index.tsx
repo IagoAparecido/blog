@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import { signIn } from "../../firebase";
+import { signIn, logout } from "../../firebase";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -19,21 +19,28 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Email:
-        <input type="email" value={email} onChange={handleEmailChange} />
-      </label>
-      <label>
-        Senha:
-        <input
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-      </label>
-      <button type="submit">Entrar</button>
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Email:
+          <input type="email" value={email} onChange={handleEmailChange} />
+        </label>
+        <label>
+          Senha:
+          <input
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+        </label>
+        <button type="submit">Entrar</button>
+      </form>
+      <form>
+        <button type="submit" onClick={() => logout()}>
+          Sair
+        </button>
+      </form>
+    </>
   );
 };
 

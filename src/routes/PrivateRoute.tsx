@@ -1,30 +1,15 @@
-import React from "react";
-import { Route, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
+import AddPost from "../pages/AddPost";
 
-interface PrivateRouteProps {
-  path?: string;
-  exact?: boolean;
-  element: React.FC<any>;
-  isAuthenticated: boolean;
-}
-
-const PrivateRoute: React.FC<PrivateRouteProps> = ({
-  element: Component,
-  isAuthenticated,
-  ...rest
-}) => {
+function PrivateRoute() {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return <div>Carregando...</div>;
+    return null;
   }
 
-  return (
-    <Route {...rest}>
-      {isAuthenticated && user ? <Component /> : <Navigate to="/home" />}
-    </Route>
-  );
-};
+  return user ? <AddPost /> : <Navigate to="/" />;
+}
 
 export default PrivateRoute;

@@ -4,7 +4,6 @@ import { getAuth, User } from "firebase/auth";
 type AuthContextValue = {
   user: User | null;
   loading: boolean;
-  toke?: any;
 };
 
 const AuthContext = createContext<AuthContextValue>({
@@ -20,11 +19,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const auth = getAuth();
 
     const unsubscribe = auth.onAuthStateChanged((user) => {
+      // console.log(user);
       setUser(user);
       setLoading(false);
     });
 
-    console.log(user);
     return unsubscribe;
   }, []);
 
