@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { signIn } from "../../firebase";
 
+import "./style.css";
+
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 import React, { useEffect } from "react";
@@ -55,6 +57,11 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [emailReset, setEmailReset] = useState("");
+  const [messageReset, setMessageReset] = useState("");
+  const [messageResetStyle, setMessageResetStyle] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [loadingLogin, setLoadingLogin] = useState(false);
+  const [error, setError] = useState("");
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -70,11 +77,16 @@ const Login = () => {
     return logged;
   }, []);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    signIn(email.toString(), password.toString()).then(() => {
-      setIsLoggedIn(true);
-    });
+    setLoadingLogin(true);
+
+    try {
+      await signIn(email.toString(), password.toString());
+    } catch (error) {
+      setError("E-mail ou Senha incorretos!");
+    }
+    setLoadingLogin(false);
   };
 
   if (isLoggedIn) {
@@ -84,8 +96,12 @@ const Login = () => {
   const resetPassword = async (email: string) => {
     try {
       await sendPasswordResetEmail(auth, email);
-      console.log("E-mail de redefinição de senha enviado!");
+      setMessageReset("Password reset email sent!");
+      setMessageResetStyle("correct");
     } catch (error) {
+      setMessageReset("Error sending reset email!");
+      setMessageResetStyle("error");
+
       console.log(error);
     }
   };
@@ -94,11 +110,16 @@ const Login = () => {
     setEmailReset(event.target.value);
   };
 
-  const handleSubmitResetPassword = (
+  const handleSubmitResetPassword = async (
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
-    resetPassword(email);
+    setLoading(true);
+
+    await resetPassword(emailReset);
+
+    setEmailReset("");
+    setLoading(false);
   };
 
   return (
@@ -153,14 +174,28 @@ const Login = () => {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
+            <p></p>
+            {loadingLogin ? (
+              <div className="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            ) : (
+              <>
+                <p className="errorLogin">{error}</p>
+
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Sign In
+                </Button>
+              </>
+            )}
             <Grid container>
               <Grid item xs>
                 <Link
@@ -205,14 +240,27 @@ const Login = () => {
                   value={emailReset}
                   onChange={handleChange}
                 />
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Send
-                </Button>
+
+                {loading ? (
+                  <div className="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                ) : (
+                  <>
+                    <p className={messageResetStyle}>{messageReset}</p>
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      sx={{ mt: 3, mb: 2 }}
+                    >
+                      Send
+                    </Button>
+                  </>
+                )}
               </Box>
             </Box>
           </Modal>

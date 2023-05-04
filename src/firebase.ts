@@ -38,6 +38,7 @@ export const signIn = async (email: string, password: string) => {
     console.log("Usuário autenticado:", userCredential.user);
   } catch (error) {
     console.error("Erro na autenticação:", error);
+    throw error;
   }
 };
 
