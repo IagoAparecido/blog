@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore/lite";
+import { getDatabase, ref, set } from "firebase/database";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -20,11 +20,18 @@ const firebaseConfig = {
   messagingSenderId: "286602744674",
   appId: "1:286602744674:web:deb5aee7bede6f6954923b",
   measurementId: "G-W76CRDWQXD",
+  databaseURL: "https://blog-41cb3-default-rtdb.firebaseio.com/",
 };
 
 const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
 const auth = getAuth(app);
+
+export const post = async (post: any, title: string) => {
+  const db = getDatabase(app);
+  set(ref(db, title), {
+    post: post,
+  });
+};
 
 export const signIn = async (email: string, password: string) => {
   setPersistence(auth, browserSessionPersistence);

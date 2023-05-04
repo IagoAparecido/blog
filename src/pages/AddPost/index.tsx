@@ -1,13 +1,23 @@
 import "./style.css";
 import "react-quill/dist/quill.snow.css";
 
+import { post as sendPostData } from "../../firebase";
+import "firebase/database";
+
 import { useRef, useState } from "react";
 import ReactQuill from "react-quill";
 import Header from "../../components/Header";
 
+interface Post {
+  content: string;
+  timestamp: number;
+}
+
 function AddPost() {
+  const [value, setValue] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
+
   const quillRef = useRef(null);
-  const [value, setValue] = useState("");
   console.log(value);
 
   const myToolbar = [
@@ -79,23 +89,47 @@ function AddPost() {
     "color",
     "video",
   ];
+
+  const handleSendData = () => {
+    const postData: Post = {
+      content: value,
+      timestamp: Date.now(),
+    };
+
+    sendPostData(postData, title);
+    setValue("");
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (value == "" || value == " ") return;
+    handleSendData();
+  };
+
   return (
     <>
       <Header />
       <div className="container_add_post">
         <div className="content_add_post">
           <h1>Realizar postagem</h1>
-          <div className="quill">
-            <ReactQuill
-              ref={quillRef}
-              theme="snow"
-              value={value}
-              onChange={setValue}
-              modules={{ toolbar: { container: myToolbar } }}
-              formats={formats}
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Title"
+              onChange={(e) => setTitle(e.target.value)}
             />
-          </div>
-          <button>Eviar</button>
+            <div className="quill">
+              <ReactQuill
+                ref={quillRef}
+                theme="snow"
+                value={value}
+                onChange={setValue}
+                modules={{ toolbar: { container: myToolbar } }}
+                formats={formats}
+              />
+            </div>
+            <button>Eviar</button>
+          </form>
         </div>
       </div>
     </>
