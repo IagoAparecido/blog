@@ -84,7 +84,7 @@ const Login = () => {
     try {
       await signIn(email.toString(), password.toString());
     } catch (error) {
-      setError("E-mail ou Senha incorretos!");
+      setError("Incorrect email or password!");
     }
     setLoadingLogin(false);
   };
