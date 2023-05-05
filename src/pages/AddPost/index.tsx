@@ -75,7 +75,7 @@ function AddPost() {
       { indent: "-1" },
       { indent: "+1" },
     ],
-    ["link", "image", "video"],
+    ["link", "image", "video", "image-link"],
     ["clean"],
   ];
 
@@ -128,7 +128,7 @@ function AddPost() {
       <Header />
       <div className="container_add_post">
         <div className="content_add_post">
-          <h1>Realizar postagem</h1>
+          <h1>Post</h1>
           <form onSubmit={handleSubmit}>
             <TextField
               margin="normal"
@@ -167,7 +167,7 @@ function AddPost() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Enviar
+                Send
               </Button>
             )}
           </form>
