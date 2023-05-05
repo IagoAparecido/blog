@@ -1,5 +1,7 @@
 import "./style.css";
 import "react-quill/dist/quill.snow.css";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 import { post as sendPostData } from "../../firebase";
 import "firebase/database";
@@ -7,6 +9,7 @@ import "firebase/database";
 import { useRef, useState } from "react";
 import ReactQuill from "react-quill";
 import Header from "../../components/Header";
+import { Navigate } from "react-router-dom";
 
 interface Post {
   content: string;
@@ -16,6 +19,8 @@ interface Post {
 function AddPost() {
   const [value, setValue] = useState<string>("");
   const [title, setTitle] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [redirect, setRedirect] = useState<boolean>(false);
 
   const quillRef = useRef(null);
   console.log(value);
@@ -90,21 +95,33 @@ function AddPost() {
     "video",
   ];
 
-  const handleSendData = () => {
+  const handleSendData = async () => {
     const postData: Post = {
       content: value,
       timestamp: Date.now(),
     };
 
-    sendPostData(postData, title);
-    setValue("");
+    await sendPostData(postData, title);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoading(true);
     if (value == "" || value == " ") return;
+
     handleSendData();
+
+    setTimeout(() => {
+      setValue("");
+      setTitle("");
+      setLoading(false);
+      setRedirect(true);
+    }, 2000);
   };
+
+  if (redirect) {
+    return <Navigate to="/post" />;
+  }
 
   return (
     <>
@@ -113,11 +130,19 @@ function AddPost() {
         <div className="content_add_post">
           <h1>Realizar postagem</h1>
           <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              placeholder="Title"
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Title"
+              name="email"
+              autoComplete="email"
+              autoFocus
               onChange={(e) => setTitle(e.target.value)}
+              value={title}
             />
+
             <div className="quill">
               <ReactQuill
                 ref={quillRef}
@@ -128,7 +153,23 @@ function AddPost() {
                 formats={formats}
               />
             </div>
-            <button>Eviar</button>
+            {loading ? (
+              <div className="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            ) : (
+              <Button
+                type="submit"
+                // fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Enviar
+              </Button>
+            )}
           </form>
         </div>
       </div>

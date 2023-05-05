@@ -53,15 +53,15 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [emailReset, setEmailReset] = useState("");
-  const [messageReset, setMessageReset] = useState("");
-  const [messageResetStyle, setMessageResetStyle] = useState("");
+  const [emailReset, setEmailReset] = useState<string>("");
+  const [messageReset, setMessageReset] = useState<string>("");
+  const [messageResetStyle, setMessageResetStyle] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [loadingLogin, setLoadingLogin] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string>("");
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);

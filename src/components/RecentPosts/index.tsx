@@ -19,15 +19,15 @@ function RecentPosts({ data }: { data: PostData[] }) {
     return (
       <div className="recent_content">
         {data
-          .slice(pagesVisited, pagesVisited + postsPerPage)
-          .map((post, index) => (
+          ?.slice(pagesVisited, pagesVisited + postsPerPage)
+          ?.map((post, index) => (
             <CardPost key={index} {...post} />
           ))}
       </div>
     );
   };
 
-  const pageCount: number = Math.ceil(data.length / postsPerPage);
+  const pageCount: number = Math.ceil(data?.length / postsPerPage);
 
   const changePage = ({ selected }: { selected: number }): void => {
     setPageNumber(selected);
