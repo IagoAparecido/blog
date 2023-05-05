@@ -1,8 +1,13 @@
 import "./style.css";
+import { useState } from "react";
+
+import { User } from "firebase/auth";
 
 import { BsSearch } from "react-icons/bs";
 
 function Header() {
+  const [user, setUser] = useState<User | null>(null);
+
   return (
     <div className="container_header">
       <div>
@@ -22,6 +27,7 @@ function Header() {
             <BsSearch />
           </button>
         </form>
+        {!user ? <button>Quit</button> : ""}
       </div>
     </div>
   );
