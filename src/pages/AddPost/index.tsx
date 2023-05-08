@@ -115,8 +115,8 @@ function AddPost() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setLoading(true);
     if (value == "" || value == " ") return;
+    setLoading(true);
 
     handleSendData();
 
