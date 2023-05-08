@@ -35,17 +35,14 @@ function RecentPosts({ data }: { data: PostData[] }) {
 
   return (
     <div className="recent_container">
-      <div className="nav_header-recent">
-        <a href="">Inicio</a>
-
-        <form action="">
-          <input type="text" />
-          <button>
-            <BsSearch />
-          </button>
-        </form>
-      </div>
       <h1>Posts Recentes</h1>
+
+      <form action="">
+        <input type="text" />
+        <button>
+          <BsSearch />
+        </button>
+      </form>
       {displayPosts()}
       <ReactPaginate
         previousLabel={"Anterior"}

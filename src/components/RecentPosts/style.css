@@ -33,9 +33,3 @@
   padding-inline: 5px;
   cursor: pointer;
 }
-
-@media (max-width: 700px) {
-  .nav_header-recent {
-    display: flex;
-  }
-}

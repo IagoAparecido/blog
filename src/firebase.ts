@@ -52,7 +52,7 @@ export const signIn = async (email: string, password: string) => {
 export const logout = async () => {
   try {
     await signOut(auth);
-    console.log("Usuário desconectado");
+    window.location.reload();
   } catch (error) {
     console.error("Erro ao fazer logout:", error);
   }

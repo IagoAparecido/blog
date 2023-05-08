@@ -1,16 +1,7 @@
-.container_header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-inline: 50px;
-  height: 80px;
-  text-align: center;
-  border-bottom: 3px solid #f9f9fb;
-}
-
 .nav_header {
   display: flex;
   gap: 30px;
+  align-items: center;
 }
 
 .nav_header form input {
@@ -23,8 +14,15 @@
   cursor: pointer;
 }
 
-@media (max-width: 700px) {
-  .nav_header {
-    display: none;
-  }
+.user_config {
+  cursor: pointer;
+  transition: 1s;
+}
+
+.user_config:hover {
+  transform: scale(1.1);
+}
+
+.link_login {
+  text-decoration: none;
 }
