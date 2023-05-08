@@ -13,6 +13,7 @@ import Container from "@mui/material/Container";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
 
 function Header() {
   const [user, setUser] = useState<User | null>(null);
@@ -39,7 +40,9 @@ function Header() {
   return (
     <Container maxWidth="lg" sx={{ borderBottom: 1, borderColor: "divider" }}>
       <Toolbar>
-        <Button size="small">Subscribe</Button>
+        <div className="subscribe">
+          <Button size="small">Subscribe</Button>
+        </div>
         <Typography
           component="h2"
           variant="h5"
@@ -52,9 +55,18 @@ function Header() {
             Blog
           </a>
         </Typography>
-        <IconButton>
-          <SearchIcon />
-        </IconButton>
+
+        <div className="container_search">
+          <TextField
+            id="outlined-basic"
+            variant="standard"
+            style={{ display: "none" }}
+          />
+
+          <IconButton>
+            <SearchIcon />
+          </IconButton>
+        </div>
 
         {user ? (
           <>

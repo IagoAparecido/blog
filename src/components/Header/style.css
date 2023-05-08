@@ -26,3 +26,14 @@
 .link_login {
   text-decoration: none;
 }
+
+.container_search {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 350px) {
+  .subscribe {
+    display: none;
+  }
+}

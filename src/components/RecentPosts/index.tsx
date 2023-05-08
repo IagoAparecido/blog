@@ -35,18 +35,12 @@ function RecentPosts({ data }: { data: PostData[] }) {
 
   return (
     <div className="recent_container">
-      <h1>Posts Recentes</h1>
+      <h1>Recent Posts</h1>
 
-      <form action="">
-        <input type="text" />
-        <button>
-          <BsSearch />
-        </button>
-      </form>
       {displayPosts()}
       <ReactPaginate
-        previousLabel={"Anterior"}
-        nextLabel={"Próxima"}
+        previousLabel={"Previous"}
+        nextLabel={"Next"}
         pageCount={pageCount}
         onPageChange={changePage}
         containerClassName={"paginationButtons"}
