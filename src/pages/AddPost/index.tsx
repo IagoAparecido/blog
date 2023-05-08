@@ -2,18 +2,21 @@ import "./style.css";
 import "react-quill/dist/quill.snow.css";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import Popover from "@mui/material/Popover";
 
 import { post as sendPostData } from "../../firebase";
 import "firebase/database";
 
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import ReactQuill from "react-quill";
 import Header from "../../components/Header";
 import { Navigate } from "react-router-dom";
+import { Container, Typography } from "@mui/material";
 
 interface Post {
   content: string;
   timestamp: number;
+  categories: string[];
 }
 
 function AddPost() {
@@ -21,6 +24,11 @@ function AddPost() {
   const [title, setTitle] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [redirect, setRedirect] = useState<boolean>(false);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [newCategory, setNewCategory] = useState<string>("");
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+    null
+  );
 
   const quillRef = useRef(null);
   console.log(value);
@@ -99,6 +107,7 @@ function AddPost() {
     const postData: Post = {
       content: value,
       timestamp: Date.now(),
+      categories: categories,
     };
 
     await sendPostData(postData, title);
@@ -123,8 +132,30 @@ function AddPost() {
     return <Navigate to="/post" />;
   }
 
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleNewCategoryChange = (event: any) => {
+    setNewCategory(event.target.value);
+  };
+
+  const handleAddCategoryClick = () => {
+    if (newCategory !== "") {
+      setCategories([...categories, newCategory]);
+      setNewCategory("");
+    }
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+
   return (
-    <>
+    <Container maxWidth="lg">
       <Header />
       <div className="container_add_post">
         <div className="content_add_post">
@@ -142,6 +173,56 @@ function AddPost() {
               onChange={(e) => setTitle(e.target.value)}
               value={title}
             />
+
+            <div className="categories">
+              <Button variant="contained" onClick={handleClick}>
+                Add Category +
+              </Button>
+              <div>
+                {categories.map((categoria: any) => (
+                  <Button
+                    key={categoria}
+                    variant="outlined"
+                    size="small"
+                    sx={{ mr: 1, mt: 1 }}
+                  >
+                    {categoria}
+                  </Button>
+                ))}
+              </div>
+            </div>
+            <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+            >
+              <Typography component="div" sx={{ p: 2 }}>
+                <form>
+                  <TextField
+                    margin="normal"
+                    fullWidth
+                    id="category"
+                    label="Category"
+                    name="category"
+                    autoFocus
+                    value={newCategory}
+                    onChange={handleNewCategoryChange}
+                  />
+                  <Button
+                    type="button"
+                    onClick={handleAddCategoryClick}
+                    variant="contained"
+                  >
+                    Add
+                  </Button>
+                </form>
+              </Typography>
+            </Popover>
 
             <div className="quill">
               <ReactQuill
@@ -173,7 +254,7 @@ function AddPost() {
           </form>
         </div>
       </div>
-    </>
+    </Container>
   );
 }
 
