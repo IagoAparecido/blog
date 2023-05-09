@@ -3,6 +3,7 @@ import "react-quill/dist/quill.snow.css";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Popover from "@mui/material/Popover";
+import CloseIcon from "@mui/icons-material/Close";
 
 import { post as sendPostData } from "../../firebase";
 import "firebase/database";
@@ -179,14 +180,20 @@ function AddPost() {
                 Add Category +
               </Button>
               <div>
-                {categories.map((categoria: any) => (
+                {categories.map((categoria: any, index: number) => (
                   <Button
-                    key={categoria}
+                    key={index}
                     variant="outlined"
                     size="small"
                     sx={{ mr: 1, mt: 1 }}
+                    onClick={() => {
+                      const updatedCategories = [...categories];
+                      updatedCategories.splice(index, 1);
+                      setCategories(updatedCategories);
+                    }}
                   >
                     {categoria}
+                    <CloseIcon sx={{ fontSize: 15 }} color="action" />
                   </Button>
                 ))}
               </div>

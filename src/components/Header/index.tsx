@@ -1,19 +1,24 @@
 import "./style.css";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import { getAuth, User } from "firebase/auth";
 import { logout } from "../../firebase";
 
-import Toolbar from "@mui/material/Toolbar";
-import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
+import AddIcon from "@mui/icons-material/Add";
+import LogoutIcon from "@mui/icons-material/Logout";
+
+import Toolbar from "@mui/material/Toolbar";
+import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
+import Divider from "@mui/material/Divider";
 
 function Header() {
   const [user, setUser] = useState<User | null>(null);
@@ -97,7 +102,15 @@ function Header() {
                 "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem onClick={() => logout()}>Logout</MenuItem>
+              <MenuItem component={Link} to="/add">
+                <AddIcon sx={{ marginRight: 1 }} />
+                New Post
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={() => logout()}>
+                <LogoutIcon sx={{ marginRight: 1 }} />
+                Logout
+              </MenuItem>
             </Menu>
           </>
         ) : (
