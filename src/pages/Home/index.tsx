@@ -1,26 +1,26 @@
 import "./style.css";
 import React, { useState, useEffect } from "react";
 
-import { ref, onValue } from "firebase/database";
 import Header from "../../components/Header";
 import TopPosts from "../../components/TopPosts";
 import RecentPosts from "../../components/RecentPosts";
 import { Container } from "@mui/material";
 
 import { db } from "../../firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 function Home() {
   const [data, setData] = useState<any[]>([]);
 
   useEffect(() => {
-    const dataRef = ref(db, "/");
-
-    onValue(dataRef, (snapshot) => {
-      const val = snapshot.val();
-
-      const dataArray = Object.values(val);
+    const fetchData = async () => {
+      const dataRef = collection(db, "posts");
+      const querySnapshot = await getDocs(dataRef);
+      const dataArray = querySnapshot.docs.map((doc) => doc.data());
       setData(dataArray);
-    });
+    };
+
+    fetchData();
   }, []);
 
   return (

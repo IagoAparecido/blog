@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, onValue } from "firebase/database";
+import { addDoc, collection, getFirestore } from "firebase/firestore";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -26,14 +27,18 @@ const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-export const db = getDatabase(app);
+// export const db = getDatabase(app);
+export const db = getFirestore(app);
 
 // console.log(user);
 
-export const post = async (post: any, title: string) => {
-  set(ref(db, title), {
-    post: post,
-  });
+export const post = async (post: any) => {
+  try {
+    const docRef = await addDoc(collection(db, "posts"), post);
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
 };
 
 export const signIn = async (email: string, password: string) => {

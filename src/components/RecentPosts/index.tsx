@@ -5,21 +5,19 @@ import ReactPaginate from "react-paginate";
 import { Container } from "@mui/material";
 
 export interface PostData {
-  post: {
-    title: string;
-    content: string;
-    author: string;
-    imageUrl?: string;
-    timestamp: string;
-    categories: string[];
-  };
+  title: string;
+  content: string;
+  author: string;
+  imageUrl?: string;
+  timestamp: string;
+  categories: string[];
 }
 
 function RecentPosts({ data }: { data: PostData[] }) {
   const [pageNumber, setPageNumber] = useState<number>(0);
   const postsPerPage = 10;
   const pagesVisited: number = pageNumber * postsPerPage;
-  console.log(data[0]?.post.categories);
+  console.log(data);
 
   const displayPosts = (): JSX.Element => {
     return (
@@ -31,10 +29,10 @@ function RecentPosts({ data }: { data: PostData[] }) {
                 .map((post, index) => (
                   <CardPost
                     key={index}
-                    title={post.post.title}
-                    date={post.post.timestamp}
-                    content={post.post.content}
-                    author={post.post.author}
+                    title={post?.title}
+                    date={post?.timestamp}
+                    content={post?.content}
+                    author={post?.author}
                   />
                 ))
             : null}
