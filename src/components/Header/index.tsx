@@ -43,7 +43,10 @@ function Header() {
   }, []);
 
   return (
-    <Container maxWidth="lg" sx={{ borderBottom: 1, borderColor: "divider" }}>
+    <Container
+      maxWidth="lg"
+      sx={{ borderBottom: 1, borderColor: "divider", backgroundColor: "white" }}
+    >
       <Toolbar>
         <div className="subscribe">
           <Button size="small">Subscribe</Button>

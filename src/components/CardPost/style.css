@@ -1,9 +1,15 @@
 .container_card {
   display: flex;
   flex-direction: column;
-  max-width: 500px;
+  width: 350px;
+  /* min-width: 33%; */
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  transition: 0.8s;
+}
+
+.container_card:hover {
+  background-color: #efeff1;
 }
 
 .img_card div {
@@ -24,7 +30,7 @@
   margin-top: 5px;
   justify-content: space-between;
   color: gray;
-  text-decoration: ;
+  text-decoration: none;
 }
 
 .card_content a {

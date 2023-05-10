@@ -1,29 +1,29 @@
 import "./style.css";
 
-function CardPost() {
+import { PostData } from "../../Types/Post";
+
+function CardPost(props: PostData) {
+  const { title, content, author, imageUrl, date } = props;
+
   return (
-    <div className="container_card">
-      <div className="img_card">
-        {/* <img src="" alt="" /> */}
-        <div
-          style={{ backgroundImage: "url(../../src/assets/img2.jpg)" }}
-        ></div>
-      </div>
-      <div className="card_content">
-        <h2>hello</h2>
-        <div>
-          <p>nome de quem publicou</p>
-          <span>data</span>
+    <>
+      <div className="container_card">
+        <div className="img_card">
+          <div
+            style={{ backgroundImage: "url(../../src/assets/img2.jpg)" }}
+          ></div>
         </div>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe dolor
-          vel unde eveniet enim reiciendis optio, consectetur veritatis numquam
-          deserunt at accusantium dignissimos! Ratione, quis aut amet eaque
-          explicabo mollitia?
-        </p>
-        <a>ler mais</a>
+        <div className="card_content">
+          <h2>{title}</h2>
+          <div>
+            <p>{author}</p>
+            <span>{date}</span>
+          </div>
+          <p>{content}</p>
+          <a>Read More</a>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import Popover from "@mui/material/Popover";
 import CloseIcon from "@mui/icons-material/Close";
 
-import { post as sendPostData } from "../../firebase";
+import { post as sendPostData, auth } from "../../firebase";
 import "firebase/database";
 
 import React, { useRef, useState } from "react";
@@ -13,11 +13,14 @@ import ReactQuill from "react-quill";
 import Header from "../../components/Header";
 import { Navigate } from "react-router-dom";
 import { Container, Typography } from "@mui/material";
+import { useEffect } from "react";
 
 interface Post {
   content: string;
-  timestamp: number;
+  timestamp: string;
   categories: string[];
+  author: string;
+  title: string;
 }
 
 function AddPost() {
@@ -27,12 +30,13 @@ function AddPost() {
   const [redirect, setRedirect] = useState<boolean>(false);
   const [categories, setCategories] = useState<string[]>([]);
   const [newCategory, setNewCategory] = useState<string>("");
+  const [author, setAuthor] = useState<string>("");
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );
 
   const quillRef = useRef(null);
-  console.log(value);
+  // console.log(value);
 
   const myToolbar = [
     [{ header: [1, 2, 3, 4, false] }],
@@ -84,7 +88,7 @@ function AddPost() {
       { indent: "-1" },
       { indent: "+1" },
     ],
-    ["link", "image", "video", "image-link"],
+    ["link", "image", "video"],
     ["clean"],
   ];
 
@@ -104,11 +108,21 @@ function AddPost() {
     "video",
   ];
 
+  const user = auth.currentUser;
+  useEffect(() => {
+    if (user !== null) {
+      setAuthor(user?.displayName ?? "Anonymous Author");
+    }
+  }, []);
+
   const handleSendData = async () => {
+    const currentDate = new Date();
     const postData: Post = {
       content: value,
-      timestamp: Date.now(),
+      timestamp: currentDate.toLocaleDateString("pt-BR"),
       categories: categories,
+      author: author,
+      title: title,
     };
 
     await sendPostData(postData, title);
@@ -156,112 +170,114 @@ function AddPost() {
   const id = open ? "simple-popover" : undefined;
 
   return (
-    <Container maxWidth="lg">
+    <div className="add_container">
       <Header />
-      <div className="container_add_post">
-        <div className="content_add_post">
-          <h1>Post</h1>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Title"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              onChange={(e) => setTitle(e.target.value)}
-              value={title}
-            />
-
-            <div className="categories">
-              <Button variant="contained" onClick={handleClick}>
-                Add Category +
-              </Button>
-              <div>
-                {categories.map((categoria: any, index: number) => (
-                  <Button
-                    key={index}
-                    variant="outlined"
-                    size="small"
-                    sx={{ mr: 1, mt: 1 }}
-                    onClick={() => {
-                      const updatedCategories = [...categories];
-                      updatedCategories.splice(index, 1);
-                      setCategories(updatedCategories);
-                    }}
-                  >
-                    {categoria}
-                    <CloseIcon sx={{ fontSize: 15 }} color="action" />
-                  </Button>
-                ))}
-              </div>
-            </div>
-            <Popover
-              id={id}
-              open={open}
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-            >
-              <Typography component="div" sx={{ p: 2 }}>
-                <form>
-                  <TextField
-                    margin="normal"
-                    fullWidth
-                    id="category"
-                    label="Category"
-                    name="category"
-                    autoFocus
-                    value={newCategory}
-                    onChange={handleNewCategoryChange}
-                  />
-                  <Button
-                    type="button"
-                    onClick={handleAddCategoryClick}
-                    variant="contained"
-                  >
-                    Add
-                  </Button>
-                </form>
-              </Typography>
-            </Popover>
-
-            <div className="quill">
-              <ReactQuill
-                ref={quillRef}
-                theme="snow"
-                value={value}
-                onChange={setValue}
-                modules={{ toolbar: { container: myToolbar } }}
-                formats={formats}
+      <Container maxWidth="lg">
+        <div className="container_add_post">
+          <div className="content_add_post">
+            <h1>Post</h1>
+            <form onSubmit={handleSubmit}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Title"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
               />
-            </div>
-            {loading ? (
-              <div className="lds-ellipsis">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+
+              <div className="categories">
+                <Button variant="contained" onClick={handleClick}>
+                  Add Category +
+                </Button>
+                <div>
+                  {categories.map((categoria: any, index: number) => (
+                    <Button
+                      key={index}
+                      variant="outlined"
+                      size="small"
+                      sx={{ mr: 1, mt: 1 }}
+                      onClick={() => {
+                        const updatedCategories = [...categories];
+                        updatedCategories.splice(index, 1);
+                        setCategories(updatedCategories);
+                      }}
+                    >
+                      {categoria}
+                      <CloseIcon sx={{ fontSize: 15 }} color="action" />
+                    </Button>
+                  ))}
+                </div>
               </div>
-            ) : (
-              <Button
-                type="submit"
-                // fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+              <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
               >
-                Send
-              </Button>
-            )}
-          </form>
+                <Typography component="div" sx={{ p: 2 }}>
+                  <form>
+                    <TextField
+                      margin="normal"
+                      fullWidth
+                      id="category"
+                      label="Category"
+                      name="category"
+                      autoFocus
+                      value={newCategory}
+                      onChange={handleNewCategoryChange}
+                    />
+                    <Button
+                      type="button"
+                      onClick={handleAddCategoryClick}
+                      variant="contained"
+                    >
+                      Add
+                    </Button>
+                  </form>
+                </Typography>
+              </Popover>
+
+              <div className="quill">
+                <ReactQuill
+                  ref={quillRef}
+                  theme="snow"
+                  value={value}
+                  onChange={setValue}
+                  modules={{ toolbar: { container: myToolbar } }}
+                  formats={formats}
+                />
+              </div>
+              {loading ? (
+                <div className="lds-ellipsis">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              ) : (
+                <Button
+                  type="submit"
+                  // fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Send
+                </Button>
+              )}
+            </form>
+          </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </div>
   );
 }
 

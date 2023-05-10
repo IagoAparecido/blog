@@ -1,11 +1,12 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set } from "firebase/database";
+import { getDatabase, ref, set, onValue } from "firebase/database";
 import {
   getAuth,
   signInWithEmailAndPassword,
   signOut,
   setPersistence,
   browserSessionPersistence,
+  // updateProfile,
 } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -23,11 +24,13 @@ const firebaseConfig = {
   databaseURL: "https://blog-41cb3-default-rtdb.firebaseio.com/",
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+export const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const db = getDatabase(app);
+
+// console.log(user);
 
 export const post = async (post: any, title: string) => {
-  const db = getDatabase(app);
   set(ref(db, title), {
     post: post,
   });
