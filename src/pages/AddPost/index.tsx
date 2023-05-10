@@ -17,7 +17,7 @@ import { useEffect } from "react";
 
 interface Post {
   content: string;
-  timestamp: string;
+  timestamp: number;
   categories: string[];
   author: string;
   title: string;
@@ -36,7 +36,7 @@ function AddPost() {
   );
 
   const quillRef = useRef(null);
-  // console.log(value);
+  console.log(value);
 
   const myToolbar = [
     [{ header: [1, 2, 3, 4, false] }],
@@ -116,16 +116,15 @@ function AddPost() {
   }, []);
 
   const handleSendData = async () => {
-    const currentDate = new Date();
     const postData: Post = {
       content: value,
-      timestamp: currentDate.toLocaleDateString("pt-BR"),
+      timestamp: Date.now(),
       categories: categories,
       author: author,
       title: title,
     };
 
-    await sendPostData(postData, title);
+    await sendPostData(postData);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {

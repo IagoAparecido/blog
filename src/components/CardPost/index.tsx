@@ -1,9 +1,27 @@
 import "./style.css";
 
 import { PostData } from "../../Types/Post";
+import { excerpt } from "../../utility";
+
+import ReactHtmlParser from "react-html-parser";
 
 function CardPost(props: PostData) {
   const { title, content, author, imageUrl, date } = props;
+
+  const contentHtml = ReactHtmlParser(content);
+  let firstParagraph = null;
+  for (let i = 0; i < contentHtml.length; i++) {
+    if (contentHtml[i].type === "p") {
+      firstParagraph = contentHtml[i];
+      break;
+    }
+  }
+  const firstParagraphText =
+    firstParagraph &&
+    typeof firstParagraph.props.children[0] === "string" &&
+    firstParagraph.props.children[0];
+
+  console.log(firstParagraphText);
 
   return (
     <>
@@ -19,7 +37,7 @@ function CardPost(props: PostData) {
             <p>{author}</p>
             <span>{date}</span>
           </div>
-          <p>{content}</p>
+          <div>{firstParagraphText}</div>
           <a>Read More</a>
         </div>
       </div>

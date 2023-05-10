@@ -26,15 +26,22 @@ function RecentPosts({ data }: { data: PostData[] }) {
           {data && data.length > 0
             ? data
                 .slice(pagesVisited, pagesVisited + postsPerPage)
-                .map((post, index) => (
-                  <CardPost
-                    key={index}
-                    title={post?.title}
-                    date={post?.timestamp}
-                    content={post?.content}
-                    author={post?.author}
-                  />
-                ))
+                .map((post, index) => {
+                  const timestamp = post.timestamp;
+                  const formattedDate = new Date(timestamp).toLocaleDateString(
+                    "pt-BR"
+                  );
+
+                  return (
+                    <CardPost
+                      key={index}
+                      title={post?.title}
+                      date={formattedDate}
+                      content={post?.content}
+                      author={post?.author}
+                    />
+                  );
+                })
             : null}
         </div>
       </Container>

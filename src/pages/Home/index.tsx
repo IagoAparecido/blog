@@ -7,7 +7,7 @@ import RecentPosts from "../../components/RecentPosts";
 import { Container } from "@mui/material";
 
 import { db } from "../../firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 
 function Home() {
   const [data, setData] = useState<any[]>([]);
@@ -15,7 +15,8 @@ function Home() {
   useEffect(() => {
     const fetchData = async () => {
       const dataRef = collection(db, "posts");
-      const querySnapshot = await getDocs(dataRef);
+      const q = query(dataRef, orderBy("timestamp", "desc"));
+      const querySnapshot = await getDocs(q);
       const dataArray = querySnapshot.docs.map((doc) => doc.data());
       setData(dataArray);
     };
