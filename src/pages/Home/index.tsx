@@ -1,10 +1,9 @@
 import "./style.css";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import Header from "../../components/Header";
 import TopPosts from "../../components/TopPosts";
 import RecentPosts from "../../components/RecentPosts";
-import { Container } from "@mui/material";
 
 import { db } from "../../firebase";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
