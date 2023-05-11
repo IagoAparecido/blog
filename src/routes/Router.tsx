@@ -3,6 +3,7 @@ import { AuthProvider } from "../context/authContext";
 
 import Home from "../pages/Home";
 import Post from "../pages/Post";
+
 import Login from "../pages/Login";
 
 import PrivateRoute from "./PrivateRoute";
