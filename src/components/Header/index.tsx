@@ -105,6 +105,8 @@ function Header() {
                 "aria-labelledby": "basic-button",
               }}
             >
+              <MenuItem>{user.displayName}</MenuItem>
+              <Divider />
               <MenuItem component={Link} to="/add">
                 <AddIcon sx={{ marginRight: 1 }} />
                 New Post
