@@ -12,8 +12,10 @@ import React, { useRef, useState } from "react";
 import ReactQuill from "react-quill";
 import Header from "../../components/Header";
 import { Navigate } from "react-router-dom";
-import { Container, Typography } from "@mui/material";
 import { useEffect } from "react";
+
+import { Container, Typography } from "@mui/material";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
 
 interface Post {
   content: string;
@@ -176,19 +178,36 @@ function AddPost() {
           <div className="content_add_post">
             <h1>Post</h1>
             <form onSubmit={handleSubmit}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Title"
-                name="email"
-                autoComplete="email"
-                autoFocus
-                onChange={(e) => setTitle(e.target.value)}
-                value={title}
-              />
+              <p className="arrow_add">
+                Add here a cover for the post
+                <img src="../../next.png" alt="seta" />
+              </p>
 
+              <div className="title_add_post">
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Title"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                  onChange={(e) => setTitle(e.target.value)}
+                  value={title}
+                />
+                <div>
+                  <label className="label_input_add" htmlFor="arquivo">
+                    <FileUploadIcon />
+                  </label>
+                  <input
+                    id="arquivo"
+                    name="arquivo"
+                    type="file"
+                    placeholder="dsa"
+                  />
+                </div>
+              </div>
               <div className="categories">
                 <Button variant="contained" onClick={handleClick}>
                   Add Category +
@@ -253,6 +272,7 @@ function AddPost() {
                   onChange={setValue}
                   modules={{ toolbar: { container: myToolbar } }}
                   formats={formats}
+                  placeholder="Digite algo"
                 />
               </div>
               {loading ? (

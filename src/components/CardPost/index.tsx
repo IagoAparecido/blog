@@ -12,7 +12,7 @@ function CardPost(props: PostData) {
           <div
             style={{ backgroundImage: "url(../../src/assets/img2.jpg)" }}
           ></div>
-          <div style={{ backgroundImage: imageUrl }}></div>
+          {/* <div style={{ backgroundImage: imageUrl }}></div> */}
         </div>
         <div className="card_content">
           <h2>{title}</h2>
