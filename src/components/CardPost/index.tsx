@@ -3,7 +3,7 @@ import "./style.css";
 import { PostData } from "../../Types/Post";
 
 function CardPost(props: PostData) {
-  const { title, content, author, imageUrl, date } = props;
+  const { title, content, author, date } = props;
 
   return (
     <>
