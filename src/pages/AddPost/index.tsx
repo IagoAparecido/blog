@@ -23,6 +23,7 @@ interface Post {
   categories: string[];
   author: string;
   title: string;
+  image: File;
 }
 
 function AddPost() {
@@ -33,6 +34,7 @@ function AddPost() {
   const [categories, setCategories] = useState<string[]>([]);
   const [newCategory, setNewCategory] = useState<string>("");
   const [author, setAuthor] = useState<string>("");
+  const [image, setImage] = useState<any>();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );
@@ -124,6 +126,7 @@ function AddPost() {
       categories: categories,
       author: author,
       title: title,
+      image: image,
     };
 
     await sendPostData(postData);
@@ -167,6 +170,19 @@ function AddPost() {
     }
   };
 
+  function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        setImage(reader.result as string);
+      };
+    }
+  }
+
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
@@ -178,10 +194,17 @@ function AddPost() {
           <div className="content_add_post">
             <h1>Post</h1>
             <form onSubmit={handleSubmit}>
-              <p className="arrow_add">
-                Add here a cover for the post
-                <img src="../../next.png" alt="seta" />
-              </p>
+              {image !== undefined ? (
+                <p className="arrow_add_complete">
+                  Image added
+                  {/* <img src="../../next.png" alt="seta" /> */}
+                </p>
+              ) : (
+                <p className="arrow_add">
+                  Add here a cover for the post
+                  <img src="../../next.png" alt="seta" />
+                </p>
+              )}
 
               <div className="title_add_post">
                 <TextField
@@ -201,9 +224,12 @@ function AddPost() {
                     <FileUploadIcon />
                   </label>
                   <input
+                    required
                     id="arquivo"
                     name="arquivo"
                     type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
                     placeholder="dsa"
                   />
                 </div>
@@ -272,7 +298,6 @@ function AddPost() {
                   onChange={setValue}
                   modules={{ toolbar: { container: myToolbar } }}
                   formats={formats}
-                  placeholder="Digite algo"
                 />
               </div>
               {loading ? (

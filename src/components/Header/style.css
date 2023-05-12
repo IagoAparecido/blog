@@ -32,6 +32,10 @@
   align-items: center;
 }
 
+.container_container_header {
+  border-bottom: 1px solid #ddd;
+}
+
 @media (max-width: 350px) {
   .subscribe {
     display: none;

@@ -1,5 +1,5 @@
 import "./style.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CardPost from "../CardPost";
 import ReactPaginate from "react-paginate";
 import { Container } from "@mui/material";
@@ -8,14 +8,14 @@ export interface PostData {
   title: string;
   content: string;
   author: string;
-  imageUrl?: string;
+  image: string;
   timestamp: string;
   categories: string[];
 }
 
 function RecentPosts({ data }: { data: PostData[] }) {
   const [pageNumber, setPageNumber] = useState<number>(0);
-  const postsPerPage = 10;
+  const postsPerPage = 9;
   const pagesVisited: number = pageNumber * postsPerPage;
   console.log(data);
 
@@ -31,7 +31,6 @@ function RecentPosts({ data }: { data: PostData[] }) {
                   const formattedDate = new Date(timestamp).toLocaleDateString(
                     "pt-BR"
                   );
-
                   return (
                     <CardPost
                       key={index}
@@ -39,6 +38,7 @@ function RecentPosts({ data }: { data: PostData[] }) {
                       date={formattedDate}
                       content={post?.content}
                       author={post?.author}
+                      image={post?.image}
                     />
                   );
                 })
@@ -60,6 +60,7 @@ function RecentPosts({ data }: { data: PostData[] }) {
 
       {displayPosts()}
       <ReactPaginate
+        className="paginate"
         previousLabel={"Previous"}
         nextLabel={"Next"}
         pageCount={pageCount}

@@ -7,6 +7,7 @@ import RecentPosts from "../../components/RecentPosts";
 
 import { db } from "../../firebase";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import Footer from "../../components/Footer";
 
 function Home() {
   const [data, setData] = useState<any[]>([]);
@@ -31,6 +32,7 @@ function Home() {
       <TopPosts />
       <RecentPosts data={data} />
 
+      <Footer />
       {/* // </Container> */}
     </div>
   );

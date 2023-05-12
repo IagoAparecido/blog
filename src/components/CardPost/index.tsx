@@ -3,14 +3,14 @@ import "./style.css";
 import { PostData } from "../../Types/Post";
 
 function CardPost(props: PostData) {
-  const { title, content, author, date } = props;
-
+  const { title, content, author, date, image } = props;
   return (
     <>
       <div className="container_card">
         <div className="img_card">
           <div
-            style={{ backgroundImage: "url(../../src/assets/img2.jpg)" }}
+            className="img_card_content"
+            style={{ backgroundImage: `url(${image})` }}
           ></div>
           {/* <div style={{ backgroundImage: imageUrl }}></div> */}
         </div>
@@ -21,7 +21,7 @@ function CardPost(props: PostData) {
             <span>{date}</span>
           </div>
           <div>{content}</div>
-          <a>Read More</a>
+          <a className="read_more">Read More</a>
         </div>
       </div>
     </>

@@ -97,3 +97,12 @@ input[type="file"] {
   width: 25px;
   padding-top: 5px;
 }
+
+.arrow_add_complete {
+  display: flex;
+  color: green;
+  justify-content: flex-end;
+  font-size: 17px;
+  font-weight: 500;
+  gap: 8px;
+}
