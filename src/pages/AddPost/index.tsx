@@ -16,6 +16,7 @@ import { useEffect } from "react";
 
 import { Container, Typography } from "@mui/material";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
+import Footer from "../../components/Footer";
 
 interface Post {
   content: string;
@@ -321,6 +322,7 @@ function AddPost() {
           </div>
         </div>
       </Container>
+      <Footer />
     </div>
   );
 }

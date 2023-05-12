@@ -12,7 +12,6 @@ function CardPost(props: PostData) {
             className="img_card_content"
             style={{ backgroundImage: `url(${image})` }}
           ></div>
-          {/* <div style={{ backgroundImage: imageUrl }}></div> */}
         </div>
         <div className="card_content">
           <h2>{title}</h2>

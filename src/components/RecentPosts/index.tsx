@@ -14,6 +14,7 @@ export interface PostData {
 }
 
 function RecentPosts({ data }: { data: PostData[] }) {
+  const [loading, setLoading] = useState<boolean>(true);
   const [pageNumber, setPageNumber] = useState<number>(0);
   const postsPerPage = 9;
   const pagesVisited: number = pageNumber * postsPerPage;
@@ -54,11 +55,28 @@ function RecentPosts({ data }: { data: PostData[] }) {
     setPageNumber(selected);
   };
 
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, [data]);
+
   return (
     <div className="recent_container">
       <h1>Recent Posts</h1>
 
-      {displayPosts()}
+      {loading ? (
+        <div className="lds-ellipsis-home">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      ) : (
+        displayPosts()
+      )}
+
       <ReactPaginate
         className="paginate"
         previousLabel={"Previous"}
