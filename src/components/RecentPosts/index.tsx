@@ -37,7 +37,7 @@ function RecentPosts({ data }: { data: PostData[] }) {
                       key={index}
                       title={post?.title}
                       date={formattedDate}
-                      content={post?.content}
+                      // content={post?.content}
                       author={post?.author}
                       image={post?.image}
                     />
