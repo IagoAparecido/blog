@@ -4,4 +4,5 @@ export interface PostData {
   author: string;
   image: string;
   date: string;
+  categories?: string[];
 }

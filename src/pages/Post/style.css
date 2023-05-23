@@ -1,0 +1,28 @@
+.content_post {
+  display: flex;
+  flex-direction: column;
+  margin-top: 80px;
+  margin-bottom: 80px;
+  padding: 15px;
+}
+
+.content_post h1 {
+  margin-bottom: 10px;
+}
+
+.content_post img {
+  border: 1px solid;
+  height: 350px;
+}
+
+.content_post .post_date {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  margin: 10px 0px 30px 0px;
+}
+
+.container_content_post div {
+  word-spacing: 2px;
+  font-size: 1.1rem;
+}

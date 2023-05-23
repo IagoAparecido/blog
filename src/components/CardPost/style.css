@@ -54,3 +54,9 @@
 .read_more {
   color: #1976d2;
 }
+
+.categories_card {
+  color: #1976d2;
+  font-weight: 600;
+  font-variant: small-caps;
+}

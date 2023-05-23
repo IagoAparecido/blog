@@ -18,7 +18,6 @@ function RecentPosts({ data }: { data: PostData[] }) {
   const [pageNumber, setPageNumber] = useState<number>(0);
   const postsPerPage = 9;
   const pagesVisited: number = pageNumber * postsPerPage;
-  console.log(data);
 
   const displayPosts = (): JSX.Element => {
     return (
@@ -40,6 +39,7 @@ function RecentPosts({ data }: { data: PostData[] }) {
                       // content={post?.content}
                       author={post?.author}
                       image={post?.image}
+                      categories={post?.categories}
                     />
                   );
                 })
