@@ -1,36 +1,55 @@
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
-
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Container } from "@mui/material";
 
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { db } from "../../firebase";
+
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
 import "./style.css";
 
 function Post() {
+  const [post, setPost] = useState<any>(null);
+  const { id } = useParams();
+
+  // useEffect(() => {
+  //   const fetchPost = async () => {
+  //     const docRef = doc(db, "blogs", id);
+  //     const blogDetail = await getDoc(docRef);
+  //     console.log(blogDetail);
+  //     // if (docSnap.exists()) {
+  //     //   setPost(docSnap.data());
+  //     // } else {
+  //     //   console.log("Post not found");
+  //     // }
+  //   };
+  //   fetchPost();
+  // }, []);
+
+  // console.log(post);
+
+  if (!post) {
+    return <div>Loading...</div>;
+  }
+
+  console.log(post);
+
+  const { title, image, date, author, content } = post;
+
   return (
     <div>
       <Header />
       <Container>
         <div className="content_post">
-          <h1>Título da postagem</h1>
-          <img src="" alt="" />
+          <h1>{title}</h1>
+          <img src={image} alt="" />
           <div className="post_date">
-            <span>Data da postagem</span>
-            <span>Autor da postagem</span>
+            <span>{date}</span>
+            <span>{author}</span>
           </div>
           <div className="container_content_post">
-            <div>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita
-              asperiores, laborum laboriosam inventore nisi doloremque corporis
-              porro repudiandae est ipsam, magnam dignissimos sit velit. Dolor,
-              possimus inventore! Obcaecati, vero quod? Lorem ipsum, dolor sit
-              amet consectetur adipisicing elit. In dolor sed voluptas delectus
-              sunt quasi? Perferendis error eveniet doloremque quia sapiente
-              exercitationem nobis harum enim, cum minima eius nemo provident.
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nihil
-              reprehenderit beatae magnam sequi magni deserunt. Amet, in
-              aperiam. Harum rerum sint atque autem possimus maxime vel debitis
-              velit commodi! Non.
-            </div>
+            <div>{content}</div>
           </div>
         </div>
       </Container>

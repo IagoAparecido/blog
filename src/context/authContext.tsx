@@ -19,7 +19,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const auth = getAuth();
 
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      // console.log(user);
       setUser(user);
       setLoading(false);
     });

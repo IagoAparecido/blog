@@ -1,9 +1,10 @@
 import "./style.css";
-
 import { PostData } from "../../Types/Post";
+import { Link } from "react-router-dom";
 
 function CardPost(props: PostData) {
-  const { title, author, date, image, categories } = props;
+  const { title, author, date, image, categories, id } = props;
+
   return (
     <>
       <div className="container_card">
@@ -22,7 +23,7 @@ function CardPost(props: PostData) {
             <p>{author}</p>
             <span>{date}</span>
           </div>
-          <a className="read_more">Read More</a>
+          <Link to={`/post/${id}`}>Read More</Link>
         </div>
       </div>
     </>
