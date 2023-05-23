@@ -1,17 +1,17 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useState } from "react";
+// import { useParams } from "react-router-dom";
 import { Container } from "@mui/material";
 
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-import { db } from "../../firebase";
+// import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+// import { db } from "../../firebase";
 
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import "./style.css";
 
 function Post() {
-  const [post, setPost] = useState<any>(null);
-  const { id } = useParams();
+  const [post] = useState<any>(null);
+  // const { id } = useParams();
 
   // useEffect(() => {
   //   const fetchPost = async () => {
@@ -29,11 +29,11 @@ function Post() {
 
   // console.log(post);
 
-  if (!post) {
-    return <div>Loading...</div>;
-  }
+  // if (!post) {
+  //   return <div>Loading...</div>;
+  // }
 
-  console.log(post);
+  // console.log(post);
 
   const { title, image, date, author, content } = post;
 

@@ -4,8 +4,8 @@ import CardPost from "../CardPost";
 import ReactPaginate from "react-paginate";
 import { Container } from "@mui/material";
 
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../firebase";
+// import { collection, getDocs } from "firebase/firestore";
+// import { db } from "../../firebase";
 
 export interface PostData {
   title: string;
@@ -19,7 +19,7 @@ export interface PostData {
 function RecentPosts({ data }: { data: PostData[] }) {
   const [loading, setLoading] = useState<boolean>(true);
   const [pageNumber, setPageNumber] = useState<number>(0);
-  const [blogs, setBlogs] = useState<PostData[]>();
+  // const [blogs, setBlogs] = useState<PostData[]>();
 
   const postsPerPage = 9;
   const pagesVisited: number = pageNumber * postsPerPage;
