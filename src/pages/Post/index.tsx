@@ -1,39 +1,48 @@
-import { useState } from "react";
-// import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Container } from "@mui/material";
 
-// import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-// import { db } from "../../firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import "./style.css";
 
 function Post() {
-  const [post] = useState<any>(null);
-  // const { id } = useParams();
+  const [post, setPost] = useState<any>(null);
+  const { id } = useParams();
 
-  // useEffect(() => {
-  //   const fetchPost = async () => {
-  //     const docRef = doc(db, "blogs", id);
-  //     const blogDetail = await getDoc(docRef);
-  //     console.log(blogDetail);
-  //     // if (docSnap.exists()) {
-  //     //   setPost(docSnap.data());
-  //     // } else {
-  //     //   console.log("Post not found");
-  //     // }
-  //   };
-  //   fetchPost();
-  // }, []);
+  useEffect(() => {
+    const fetchPost = async () => {
+      if (id) {
+        const docRef = doc(db, "posts", id);
+        const blogDetail = await getDoc(docRef);
+        console.log(docRef);
+        if (blogDetail.exists()) {
+          setPost(blogDetail.data());
+        } else {
+          console.log("Post not found");
+        }
+      }
+    };
+    fetchPost();
+  }, [id]);
 
-  // console.log(post);
+  console.log(post);
 
-  // if (!post) {
-  //   return <div>Loading...</div>;
-  // }
+  if (!post) {
+    return (
+      <div className="lds-ellipsis-post">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    );
+  }
 
-  // console.log(post);
+  console.log(post);
 
   const { title, image, date, author, content } = post;
 

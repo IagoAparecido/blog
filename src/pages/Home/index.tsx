@@ -13,15 +13,24 @@ function Home() {
   const [data, setData] = useState<any[]>([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const dataRef = collection(db, "posts");
-      const q = query(dataRef, orderBy("timestamp", "desc"));
-      const querySnapshot = await getDocs(q);
-      const dataArray = querySnapshot.docs.map((doc) => doc.data());
-      setData(dataArray);
+    const fetchBlog = async () => {
+      const blogRef = collection(db, "posts");
+      const q = query(blogRef, orderBy("timestamp", "desc"));
+      const blogsSnapshot = await getDocs(q);
+      setData(
+        blogsSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          title: doc.data().title,
+          content: doc.data().content,
+          author: doc.data().author,
+          image: doc.data().image,
+          timestamp: doc.data().timestamp,
+          categories: doc.data().categories,
+        }))
+      );
     };
 
-    fetchData();
+    fetchBlog();
   }, []);
 
   return (
