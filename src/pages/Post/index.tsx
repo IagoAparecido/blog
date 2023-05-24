@@ -58,7 +58,7 @@ function Post() {
             <span>{author}</span>
           </div>
           <div className="container_content_post">
-            <div>{content}</div>
+            <div dangerouslySetInnerHTML={{ __html: content }} />
           </div>
         </div>
       </Container>

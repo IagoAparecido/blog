@@ -149,7 +149,7 @@ function AddPost() {
   };
 
   if (redirect) {
-    return <Navigate to="/post" />;
+    return <Navigate to={`/`} />;
   }
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {

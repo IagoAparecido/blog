@@ -12,7 +12,7 @@
 
 .content_post img {
   border: 1px solid;
-  height: 350px;
+  max-height: 400px;
 }
 
 .content_post .post_date {
