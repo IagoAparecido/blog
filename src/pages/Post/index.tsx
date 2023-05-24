@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Container } from "@mui/material";
+import PersonIcon from "@mui/icons-material/Person";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
@@ -54,8 +56,14 @@ function Post() {
           <h1>{title}</h1>
           <img src={image} alt="" />
           <div className="post_date">
-            <span>{formattedDate}</span>
-            <span>{author}</span>
+            <span>
+              <CalendarMonthIcon />
+              {formattedDate}
+            </span>
+            <span>
+              <PersonIcon />
+              {author}
+            </span>
           </div>
           <div className="container_content_post">
             <div dangerouslySetInnerHTML={{ __html: content }} />

@@ -11,7 +11,7 @@
 }
 
 .content_post img {
-  border: 1px solid;
+  border-radius: 5px;
   max-height: 400px;
 }
 
@@ -25,6 +25,13 @@
 .container_content_post div {
   word-spacing: 2px;
   font-size: 1.1rem;
+}
+
+.post_date span {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
 }
 
 .lds-ellipsis-post {
