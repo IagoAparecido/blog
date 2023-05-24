@@ -18,7 +18,6 @@ function Post() {
       if (id) {
         const docRef = doc(db, "posts", id);
         const blogDetail = await getDoc(docRef);
-        console.log(docRef);
         if (blogDetail.exists()) {
           setPost(blogDetail.data());
         } else {
@@ -28,8 +27,6 @@ function Post() {
     };
     fetchPost();
   }, [id]);
-
-  console.log(post);
 
   if (!post) {
     return (
@@ -42,9 +39,12 @@ function Post() {
     );
   }
 
-  console.log(post);
+  const { title, image, author, content } = post;
 
-  const { title, image, date, author, content } = post;
+  const timestamp = post.timestamp;
+  const formattedDate = new Date(timestamp).toLocaleDateString("pt-BR");
+
+  console.log(timestamp);
 
   return (
     <div>
@@ -54,7 +54,7 @@ function Post() {
           <h1>{title}</h1>
           <img src={image} alt="" />
           <div className="post_date">
-            <span>{date}</span>
+            <span>{formattedDate}</span>
             <span>{author}</span>
           </div>
           <div className="container_content_post">
