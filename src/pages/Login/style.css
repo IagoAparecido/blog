@@ -19,6 +19,10 @@
   font-size: 18px;
 }
 
+.button_return:hover {
+  transform: scale(1.1);
+}
+
 .lds-ellipsis {
   display: inline-block;
   position: relative;

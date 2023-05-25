@@ -130,6 +130,7 @@ const Login = () => {
         <CssBaseline />
         <a href="/">
           <ArrowBackIosIcon
+            className="button_return"
             sx={{
               marginBottom: -20,
               color: "primary.main",
