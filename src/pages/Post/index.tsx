@@ -46,8 +46,6 @@ function Post() {
   const timestamp = post.timestamp;
   const formattedDate = new Date(timestamp).toLocaleDateString("pt-BR");
 
-  console.log(timestamp);
-
   return (
     <div>
       <Header />

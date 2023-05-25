@@ -41,7 +41,6 @@ function AddPost() {
   );
 
   const quillRef = useRef(null);
-  console.log(value);
 
   const myToolbar = [
     [{ header: [1, 2, 3, 4, false] }],
