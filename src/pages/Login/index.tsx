@@ -15,12 +15,14 @@ import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Navigate } from "react-router-dom";
 import Modal from "@mui/material/Modal";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { NavLink } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -126,6 +128,15 @@ const Login = () => {
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        <a href="/">
+          <ArrowBackIosIcon
+            sx={{
+              marginBottom: -20,
+              color: "primary.main",
+              cursor: "pointer",
+            }}
+          />
+        </a>
         <Box
           sx={{
             marginTop: 13,
