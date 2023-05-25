@@ -135,6 +135,10 @@ const Login = () => {
               marginBottom: -20,
               color: "primary.main",
               cursor: "pointer",
+              transition: ".2s",
+              ":hover": {
+                transform: "scale(1.1)",
+              },
             }}
           />
         </a>
