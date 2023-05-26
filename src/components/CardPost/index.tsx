@@ -23,7 +23,9 @@ function CardPost(props: PostData) {
             <p>{author}</p>
             <span>{date}</span>
           </div>
-          <Link to={`/post/${id}`}>Read More</Link>
+          <Link className="btn-12" to={`/post/${id}`}>
+            Read More
+          </Link>
         </div>
       </div>
     </>
