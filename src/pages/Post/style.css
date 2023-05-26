@@ -49,6 +49,12 @@
   max-width: 400px;
 }
 
+.popover {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
 .lds-ellipsis-post {
   display: inline-block;
   position: relative;
