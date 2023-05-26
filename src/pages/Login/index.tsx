@@ -22,7 +22,6 @@ import { Navigate } from "react-router-dom";
 import Modal from "@mui/material/Modal";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { NavLink } from "react-router-dom";
 
 const style = {
   position: "absolute",
