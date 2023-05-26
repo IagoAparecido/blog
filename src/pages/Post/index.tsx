@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { Container, Typography } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Popover from "@mui/material/Popover";
 import Button from "@mui/material/Button";
+import Alert from "@mui/material/Alert";
 
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 
 import Footer from "../../components/Footer";
@@ -20,9 +21,7 @@ function Post() {
   const [user, setUser] = useState<User | null>(null);
   const [post, setPost] = useState<any>(null);
   const { id } = useParams();
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-    null
-  );
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -30,6 +29,21 @@ function Post() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const navigate = useNavigate();
+
+  const handleDelete = async () => {
+    try {
+      if (id) {
+        await deleteDoc(doc(db, "posts", id));
+        console.log("Post deleted successfully");
+        <Alert severity="error">This is an error alert — check it out!</Alert>;
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
   };
 
   const open = Boolean(anchorEl);
@@ -47,6 +61,7 @@ function Post() {
         }
       }
     };
+
     const userAuth = () => {
       const auth = getAuth();
 
@@ -112,7 +127,11 @@ function Post() {
             >
               <div className="popover">
                 <Typography sx={{ p: 1 }}>Are you sure?</Typography>
-                <Button variant="contained" color="error">
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={handleDelete}
+                >
                   Delete
                 </Button>
               </div>
