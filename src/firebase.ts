@@ -30,8 +30,7 @@ export const db = getFirestore(app);
 
 export const post = async (post: any) => {
   try {
-    const docRef = await addDoc(collection(db, "posts"), post);
-    console.log("Document written with ID: ", docRef.id);
+    await addDoc(collection(db, "posts"), post);
   } catch (e) {
     console.error("Error adding document: ", e);
   }
@@ -41,12 +40,7 @@ export const signIn = async (email: string, password: string) => {
   setPersistence(auth, browserSessionPersistence);
 
   try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    console.log("Usuário autenticado:", userCredential.user);
+    await signInWithEmailAndPassword(auth, email, password);
   } catch (error) {
     console.error("Erro na autenticação:", error);
     throw error;

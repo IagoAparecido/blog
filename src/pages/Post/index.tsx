@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Container } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
+import DeleteIcon from "@mui/icons-material/Delete";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 import { doc, getDoc } from "firebase/firestore";
@@ -11,7 +12,10 @@ import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import "./style.css";
 
+import { getAuth, User } from "firebase/auth";
+
 function Post() {
+  const [user, setUser] = useState<User | null>(null);
   const [post, setPost] = useState<any>(null);
   const { id } = useParams();
 
@@ -27,6 +31,17 @@ function Post() {
         }
       }
     };
+    const userAuth = () => {
+      const auth = getAuth();
+
+      const unsubscribe = auth.onAuthStateChanged((user) => {
+        setUser(user);
+      });
+
+      return unsubscribe;
+    };
+
+    userAuth();
     fetchPost();
   }, [id]);
 
@@ -51,7 +66,23 @@ function Post() {
       <Header />
       <Container>
         <div className="content_post">
-          <h1>{title}</h1>
+          <div className="container_title">
+            <h1>{title}</h1>
+            {user ? (
+              <DeleteIcon
+                sx={{
+                  color: "#d50000",
+                  transition: ".2s",
+                  cursor: "pointer",
+                  ":hover": {
+                    transform: "scale(1.1)",
+                  },
+                }}
+              />
+            ) : (
+              ""
+            )}
+          </div>
           <img src={image} alt="" />
           <div className="post_date">
             <span>

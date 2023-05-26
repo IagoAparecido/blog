@@ -6,8 +6,15 @@
   padding: 15px;
 }
 
-.content_post h1 {
+.content_post .container_title h1 {
   margin-bottom: 10px;
+  color: #222222;
+}
+
+.container_title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .content_post img {
@@ -25,6 +32,7 @@
 .container_content_post div {
   word-spacing: 2px;
   font-size: 1.1rem;
+  color: #222222;
 }
 
 .post_date span {
@@ -34,6 +42,9 @@
   align-items: center;
 }
 
+.container_content_post {
+  color: #222222;
+}
 .container_content_post div img {
   max-width: 400px;
 }
