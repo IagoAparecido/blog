@@ -1,3 +1,13 @@
+.container_header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  height: 65px;
+  position: fixed;
+  border-bottom: 1px solid #ddd;
+}
+
 .nav_header {
   display: flex;
   gap: 30px;
